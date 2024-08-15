@@ -10,7 +10,7 @@ int main(void)
 pid_t my_pid;
 pid_t parent;
 
-my_pid = gitpid();
+my_pid = getpid();
 parent = getppid();
 
 printf("PID: %u, PPID: %u\n", my_pid, parent);

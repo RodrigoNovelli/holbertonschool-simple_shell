@@ -1,41 +1,37 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
-
+#include "shell.h"
 #define DELIM " \n"
+#define PROMPT "$ "
 
 /**
  *
  */
-int main (void)
+int main(int ac, char **av, char **env)
 {
 	size_t len = 0;
 	ssize_t aux = 0;
-	char *token, **arg, *flag, *line = NULL;
-	int argc = 0, status, x = 0, i = 0;
-	pid_t child;
+	char **arg = NULL, *line = NULL;
+	int status, x = 0, i = 0;
+	int *argc = NULL;
+	pid_t child = 0;
 
 	while (1)
 	{
 		/* ------------- Leer el input ------------- */
-		printf("$ ");
+		printf(PROMPT);
 		aux = getline(&line, &len, stdin);
 		if (aux == -1)
 			break;
 		line[aux] = '\0';
 		/* ------------- Tokenizar ------------- */
 		
-		for (x = 0, argc = 1; line[x] != '\0'; x++)
+		/* for (x = 0, argc = 1; line[x] != '\0'; x++)
 		{
 			if (line[x] == ' ' && line[x + 1] >= 97 && line[x + 1] <= 122)
 				argc++;
 		}
-		arg = malloc(sizeof(char *) * (argc + 2)); /* (char * -> 8 bytes) * 5 = 40 */
+		arg = malloc(sizeof(char *) * (argc + 2));
 		if (arg == NULL)
-			break;
+			return (NULL);
 		for (i = 0; i <= argc + 1; i++)
 			arg[i] = NULL;
 
@@ -49,8 +45,9 @@ int main (void)
 		}
 
 		for (int a = 0; arg[a] != NULL; a++)
-			printf("arg[%d] -> %s\n", a, arg[a]); 
+			printf("arg[%d] -> %s\n", a, arg[a]);
 		/* ------------- executar ------------- */
+		arg = tokenizator(arg, line, argc);
 		child = fork();
 		if (child == 0)
 		{

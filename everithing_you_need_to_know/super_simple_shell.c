@@ -15,7 +15,7 @@ int main (void)
 	size_t len = 0;
 	ssize_t aux = 0;
 	char *token, **arg, *flag, *line = NULL;
-	int argc = 0, status, x = 0, i;
+	int argc = 0, status, x = 0, i = 0;
 	pid_t child;
 
 	while (1)
@@ -28,12 +28,17 @@ int main (void)
 		line[aux] = '\0';
 		/* ------------- Tokenizar ------------- */
 		
-		for (x = 0, argc = 0; line[x] != '\0'; x++)
+		for (x = 0, argc = 1; line[x] != '\0'; x++)
 		{
-			if (line[x] == ' ')
+			if (line[x] == ' ' && line[x + 1] >= 97 && line[x + 1] <= 122)
 				argc++;
 		}
-		arg = malloc(sizeof(char *) * (argc + 1)); /* (char * -> 8 bytes) * 5 = 40 */
+		arg = malloc(sizeof(char *) * (argc + 2)); /* (char * -> 8 bytes) * 5 = 40 */
+		if (arg == NULL)
+			break;
+		for (i = 0; i <= argc + 1; i++)
+			arg[i] = NULL;
+
 		token = strtok(line, DELIM);
 		argc = 0;
 		while (token != NULL)
@@ -43,8 +48,8 @@ int main (void)
 			argc++;
 		}
 
-		/* for (int a = 0; arg[a] != NULL; a++)
-			printf("arg[%d] -> %s\n", a, arg[a]); */
+		for (int a = 0; arg[a] != NULL; a++)
+			printf("arg[%d] -> %s\n", a, arg[a]); 
 		/* ------------- executar ------------- */
 		child = fork();
 		if (child == 0)

@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+/* morza estuvo aqui */
 #include <string.h>
 #define DELIM " \n"
 int main(int ac, char **av, char **env);

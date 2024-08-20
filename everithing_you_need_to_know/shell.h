@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <string.h>
-#define DELIM " \n"
+#define DELIM "=: \n"
 int main(int ac, char **av, char **env);
 char **tokenizator(char **arg, char *line, int *len);
 #endif

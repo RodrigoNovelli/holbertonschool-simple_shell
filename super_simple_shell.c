@@ -1,7 +1,5 @@
 #include "shell.h"
-#define DELIM " \n"
 #define PROMPT "$ "
-
 /**
  *
  */
@@ -22,33 +20,9 @@ int main(int ac, char **av, char **env)
 		if (aux == -1)
 			break;
 		line[aux] = '\0';
-		/* ------------- Tokenizar ------------- */
-		
-		/* for (x = 0, argc = 1; line[x] != '\0'; x++)
-		{
-			if (line[x] == ' ' && line[x + 1] >= 97 && line[x + 1] <= 122)
-				argc++;
-		}
-		arg = malloc(sizeof(char *) * (argc + 2));
-		if (arg == NULL)
-			return (NULL);
-		for (i = 0; i <= argc + 1; i++)
-			arg[i] = NULL;
-
-		token = strtok(line, DELIM);
-		argc = 0;
-		while (token != NULL)
-		{
-			arg[argc] = strdup(token);
-			token = strtok(NULL, DELIM);
-			argc++;
-		}
-
-		for (int a = 0; arg[a] != NULL; a++)
-			printf("arg[%d] -> %s\n", a, arg[a]);
-		/* ------------- executar ------------- */
 		arg = tokenizator(arg, line, argc);
 		child = fork();
+		/* --------------executttte---------------- */
 		if (child == 0)
 		{
 			if(execve(arg[0], arg, NULL) == -1)
@@ -59,7 +33,7 @@ int main(int ac, char **av, char **env)
 		}
 		else 
 			wait(&status);
-		/* ------------- frees ------------- */
+		/* ------------------- frees ------------- */
 		for (i = 0; arg[i] != NULL; i++)
 			free(arg[i]);
 		free(arg);

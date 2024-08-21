@@ -11,4 +11,5 @@
 #define DELIM "=: \n"
 int main(int ac, char **av, char **env);
 char **tokenizator(char **arg, char *line, int *len);
+char *_getcommand(char **env, char *input);
 #endif

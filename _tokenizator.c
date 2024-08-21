@@ -23,7 +23,5 @@ char **tokenizator (char **arg, char *line, int *len)
 		token = strtok(NULL, DELIM);
 		aux++;
 	}
-	for (aux = 0; arg[aux] != NULL; aux++)
-		printf("arg[%d] -> %s\n", aux, arg[aux]);
 	return (arg);
 }

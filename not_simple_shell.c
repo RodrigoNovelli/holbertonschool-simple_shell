@@ -15,15 +15,17 @@ int main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 
-	if (!isatty(STDIN_FILENO))
-		exit (0);
 	while (1)
 	{
+		if (isatty(STDIN_FILENO))
+		{
+			printf(PROMPT);
+		}
 		/* ------------- Leer el input ------------- */
-		printf(PROMPT);
 		aux = getline(&line, &len, stdin);
 		if (aux == -1)
-			break;
+				break;
+
 		line[aux] = '\0';
 		/* ------------- executar ------------- */
 		arg = tokenizator(arg, line);

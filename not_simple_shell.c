@@ -22,7 +22,10 @@ int main(int ac, char **av, char **env)
 		line[aux] = '\0';
 		/* ------------- executar ------------- */
 		arg = tokenizator(arg, line, argc);
-		command = _getcommand(env, arg[0]);
+		if (line[0] == '/')
+			command = arg[0];
+		else
+			command = _getcommand(env, arg[0]);
 		if (command != NULL)
 		{
 			child = fork();
@@ -40,7 +43,6 @@ int main(int ac, char **av, char **env)
 			for (i = 0; arg[i] != NULL; i++)
 				free(arg[i]);
 			free(arg);
-			free(command);
 		}
 	}
 		free(line);

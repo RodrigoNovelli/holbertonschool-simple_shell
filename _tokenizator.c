@@ -1,5 +1,5 @@
 #include "shell.h"
-char **tokenizator (char **arg, char *line, int *len)
+char **tokenizator (char **arg, char *line)
 {
 	int x = 0, aux = 0, argc = 0;
 	int i = 0;

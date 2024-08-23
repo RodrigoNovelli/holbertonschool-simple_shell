@@ -9,9 +9,11 @@ int main(int ac, char **av, char **env)
 	size_t len = 0;
 	ssize_t aux = 0;
 	char **arg = NULL, *line = NULL, *command = NULL;
-	int status, x = 0, i = 0, *argc = NULL;
+	int i = 0;
 	pid_t child = 0;
 
+	(void) ac;
+	(void) av;
 	while (1)
 	{
 		/* ------------- Leer el input ------------- */
@@ -21,7 +23,7 @@ int main(int ac, char **av, char **env)
 			break;
 		line[aux] = '\0';
 		/* ------------- executar ------------- */
-		arg = tokenizator(arg, line, argc);
+		arg = tokenizator(arg, line);
 		if (line[0] == '/')
 			command = arg[0];
 		else

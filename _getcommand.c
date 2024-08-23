@@ -7,7 +7,6 @@ char *_getcommand(char **env, char *input)
 {
         int i = 0, x = 0;
         char *PATH = NULL, **dirs = NULL, *command = NULL;
-        int *len = NULL;
 	/*-----------Recorre las env var y encuentra path--------*/
         while (env[i] != NULL)
         {
@@ -18,7 +17,7 @@ char *_getcommand(char **env, char *input)
                 i++;
         }
 	/*---Tokeniza las capretas----*/
-        dirs = tokenizator(dirs, PATH, len);
+        dirs = tokenizator(dirs, PATH);
 	/*---- agrega / al comienzo del argumento -----*/
 	for (x = 0; input[x] != 0; x++)
 		;

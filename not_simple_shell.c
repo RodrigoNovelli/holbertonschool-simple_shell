@@ -14,6 +14,9 @@ int main(int ac, char **av, char **env)
 
 	(void) ac;
 	(void) av;
+
+	if (!isatty(STDIN_FILENO))
+		exit (0);
 	while (1)
 	{
 		/* ------------- Leer el input ------------- */

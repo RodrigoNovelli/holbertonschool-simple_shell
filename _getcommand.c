@@ -22,6 +22,15 @@ char *_getcommand(char **env, char *input)
 	for (x = 0; input[x] != 0; x++)
 		;
 	command = malloc(sizeof(char) * (x + 1));
+
+	if (command == NULL)
+	{
+		for (i = 0; dirs[i] != NULL; i++)
+			free(dirs[i]);
+		free(dirs);
+		free(PATH);
+	}
+
 	command[0] = '/';
 	for (x = 1, i = 0; input[i] != 0; x++)
 	{

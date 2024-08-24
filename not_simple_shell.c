@@ -9,7 +9,7 @@ int main(int ac, char **av, char **env)
 	size_t len = 0;
 	ssize_t aux = 0;
 	char **arg = NULL, *line = NULL, *command = NULL;
-	int i = 0;
+	int i = 0, check = 0;
 	pid_t child = 0;
 
 	(void) ac;
@@ -18,19 +18,19 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-		{
 			printf(PROMPT);
-		}
 		/* ------------- Leer el input ------------- */
 		aux = getline(&line, &len, stdin);
 		if (aux == -1)
 				break;
-
 		line[aux] = '\0';
 		/* ------------- executar ------------- */
 		arg = tokenizator(arg, line);
 		if (line[0] == '/')
+		{
+			check = 1;
 			command = arg[0];
+		}
 		else
 			command = _getcommand(env, arg[0]);
 		if (command != NULL)
@@ -50,8 +50,9 @@ int main(int ac, char **av, char **env)
 			for (i = 0; arg[i] != NULL; i++)
 				free(arg[i]);
 			free(arg);
+			if (check == 0)
+				free(command);
 		}
-		free(command);
 	}
 	free(line);
 	return (0);

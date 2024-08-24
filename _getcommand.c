@@ -58,7 +58,10 @@ char *_getcommand(char **env, char *input)
                         return (path);
                 }
                 else
+		{
+			free(path);
                         continue;
+		}
         }
         printf("Command not found x.x");
         for (i = 0; dirs[i] != NULL; i++)

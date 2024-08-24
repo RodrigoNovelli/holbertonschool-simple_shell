@@ -26,7 +26,7 @@ int main(int ac, char **av, char **env)
 		line[aux] = '\0';
 		/* ------------- executar ------------- */
 		arg = tokenizator(arg, line);
-		if (line[0] == '/')
+		if (arg[0][0] == '/')
 		{
 			check = 1;
 			command = arg[0];

@@ -27,7 +27,6 @@ char *_getcommand(char **env, char *input)
         command[0] = '/';
 	command[1] = '\0';
         strcat(command, input);
-	printf("str command %s\n", command); /* print */
         /*---Tokeniza las capretas----*/
         dirs = tokenizator(dirs, PATH);
         /*-----Lo concatena con cada capeta y checkea si es ejecutable------*/
@@ -38,7 +37,6 @@ char *_getcommand(char **env, char *input)
 		path[0] = '\0';
 		strcat(path, dirs[i]);
 		strcat(path, command);
-		printf("this is path = %s\n", path);
                 if (path == NULL)
                 {
                         for (i = 0; dirs[i] != NULL; i++)
@@ -46,7 +44,7 @@ char *_getcommand(char **env, char *input)
                         free(dirs);
                         free(PATH);
                         free(command);
-                        return (NULL);printf("str path %s\n", path);
+                        return (NULL);
 		}
                 if (access(path, X_OK) == 0)
                 {
